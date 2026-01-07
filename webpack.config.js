@@ -66,6 +66,12 @@ module.exports = async (env, options) => {
         template: "./src/taskpane/taskpane.html",
         chunks: ["polyfill", "taskpane", "react"],
       }),
+       // NEW entry for the dummy index.html
+      new HtmlWebpackPlugin({
+        filename: "index.html",
+        template: "./src/taskpane/index.html", // Path to your dummy file
+        chunks: [], // No JS logic needed for the redirect
+      }),
       new CopyWebpackPlugin({
         patterns: [
           {
