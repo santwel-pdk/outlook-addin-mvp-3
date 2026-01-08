@@ -4,6 +4,7 @@ const devCerts = require("office-addin-dev-certs");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
+require("dotenv").config();
 
 const urlDev = "https://localhost:3000/";
 const urlProd = "https://www.contoso.com/"; // CHANGE THIS TO YOUR PRODUCTION DEPLOYMENT LOCATION
@@ -98,6 +99,11 @@ module.exports = async (env, options) => {
       }),
       new webpack.ProvidePlugin({
         Promise: ["es6-promise", "Promise"],
+      }),
+      new webpack.DefinePlugin({
+        'process.env.REACT_APP_SIGNALR_HUB_URL': JSON.stringify(process.env.REACT_APP_SIGNALR_HUB_URL),
+        'process.env.REACT_APP_SIGNALR_ACCESS_TOKEN': JSON.stringify(process.env.REACT_APP_SIGNALR_ACCESS_TOKEN),
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || (dev ? 'development' : 'production')),
       }),
     ],
     devServer: {

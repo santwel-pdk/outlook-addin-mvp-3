@@ -53,8 +53,18 @@ export function useSignalR(): SignalRConnectionState {
 
       try {
         // Get configuration from environment variables
+        const hubUrl = process.env.REACT_APP_SIGNALR_HUB_URL;
+        
+        // Provide helpful error message if environment variables are not configured
+        if (!hubUrl) {
+          throw new Error(
+            'SignalR configuration missing. Please create a .env file with REACT_APP_SIGNALR_HUB_URL. ' +
+            'See .env.example for a template.'
+          );
+        }
+
         const config: SignalRConfig = {
-          hubUrl: process.env.REACT_APP_SIGNALR_HUB_URL || 'https://localhost:7071/notificationhub',
+          hubUrl: hubUrl,
           accessToken: process.env.REACT_APP_SIGNALR_ACCESS_TOKEN,
           reconnectPolicy: [0, 2000, 10000, 30000]
         };

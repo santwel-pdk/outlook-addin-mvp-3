@@ -15,6 +15,27 @@ let connection: HubConnection | null = null;
 let currentConfig: SignalRConfig | null = null;
 
 /**
+ * Validates SignalR configuration
+ *
+ * @param {SignalRConfig} config Configuration to validate
+ * @throws {Error} If configuration is invalid
+ */
+function validateSignalRConfig(config: SignalRConfig): void {
+  if (!config.hubUrl) {
+    throw new Error('SignalR Hub URL is required. Please set REACT_APP_SIGNALR_HUB_URL in your .env file.');
+  }
+
+  if (!config.hubUrl.startsWith('https://')) {
+    throw new Error('SignalR Hub URL must use HTTPS for security. Current URL: ' + config.hubUrl);
+  }
+
+  // Optional: Validate token format if provided
+  if (config.accessToken && config.accessToken.trim().length < 10) {
+    console.warn('SignalR access token appears to be too short. Please verify your REACT_APP_SIGNALR_ACCESS_TOKEN.');
+  }
+}
+
+/**
  * Initializes SignalR connection after Office.js is ready
  *
  * @param {SignalRConfig} config SignalR configuration options
@@ -26,6 +47,9 @@ export async function initializeSignalR(config: SignalRConfig): Promise<HubConne
   if (!Office.context) {
     throw new Error('Office.js must be initialized before SignalR');
   }
+
+  // Validate configuration
+  validateSignalRConfig(config);
 
   if (isInitialized && connection) {
     return connection;
