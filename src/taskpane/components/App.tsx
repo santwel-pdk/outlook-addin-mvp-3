@@ -1,8 +1,10 @@
 import * as React from "react";
 import Header from "./Header";
 import EmailInfo from "./EmailInfo";
+import SignalRStatus from "./SignalRStatus";
 import { makeStyles } from "@fluentui/react-components";
 import { useMailboxItem } from "../hooks/useMailboxItem";
+import { useSignalR } from "../hooks/useSignalR";
 import { getPlatformName } from "../utils/platform";
 import { getBrowserEngine } from "../services/webview2Service";
 
@@ -25,6 +27,7 @@ const useStyles = makeStyles({
 const App: React.FC<AppProps> = (props: AppProps) => {
   const styles = useStyles();
   const { emailData, isLoading, error } = useMailboxItem();
+  const signalrState = useSignalR();
   const platform = getPlatformName();
   const browserEngine = getBrowserEngine();
 
@@ -37,6 +40,8 @@ const App: React.FC<AppProps> = (props: AppProps) => {
       </div>
 
       <EmailInfo emailData={emailData} isLoading={isLoading} error={error} />
+      
+      <SignalRStatus signalrState={signalrState} />
     </div>
   );
 };

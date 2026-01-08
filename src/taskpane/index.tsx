@@ -26,10 +26,10 @@ Office.onReady(() => {
       </FluentProvider>
     );
   } catch (error) {
-    console.error('Failed to initialize add-in:', error);
+    console.error("Failed to initialize add-in:", error);
     root?.render(
       <FluentProvider theme={webLightTheme}>
-        <div style={{ padding: '20px', color: 'red' }}>
+        <div style={{ padding: "20px", color: "red" }}>
           <h2>Initialization Error</h2>
           <p>{(error as Error).message}</p>
         </div>
