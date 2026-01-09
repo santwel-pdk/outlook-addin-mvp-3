@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for taskpane/services/signalrService.ts</title>
+    <title>Code coverage report for taskpane/services/ssoService.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">taskpane/services</a> signalrService.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">taskpane/services</a> ssoService.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">90.81% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/86</span>
+                <span class='fraction'>89/98</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">78.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/54</span>
+                <span class='fraction'>47/60</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">92.85% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>13/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">90.42% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/83</span>
+                <span class='fraction'>85/94</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -310,7 +310,92 @@
 <a name='L245'></a><a href='#L245'>245</a>
 <a name='L246'></a><a href='#L246'>246</a>
 <a name='L247'></a><a href='#L247'>247</a>
-<a name='L248'></a><a href='#L248'>248</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a>
+<a name='L266'></a><a href='#L266'>266</a>
+<a name='L267'></a><a href='#L267'>267</a>
+<a name='L268'></a><a href='#L268'>268</a>
+<a name='L269'></a><a href='#L269'>269</a>
+<a name='L270'></a><a href='#L270'>270</a>
+<a name='L271'></a><a href='#L271'>271</a>
+<a name='L272'></a><a href='#L272'>272</a>
+<a name='L273'></a><a href='#L273'>273</a>
+<a name='L274'></a><a href='#L274'>274</a>
+<a name='L275'></a><a href='#L275'>275</a>
+<a name='L276'></a><a href='#L276'>276</a>
+<a name='L277'></a><a href='#L277'>277</a>
+<a name='L278'></a><a href='#L278'>278</a>
+<a name='L279'></a><a href='#L279'>279</a>
+<a name='L280'></a><a href='#L280'>280</a>
+<a name='L281'></a><a href='#L281'>281</a>
+<a name='L282'></a><a href='#L282'>282</a>
+<a name='L283'></a><a href='#L283'>283</a>
+<a name='L284'></a><a href='#L284'>284</a>
+<a name='L285'></a><a href='#L285'>285</a>
+<a name='L286'></a><a href='#L286'>286</a>
+<a name='L287'></a><a href='#L287'>287</a>
+<a name='L288'></a><a href='#L288'>288</a>
+<a name='L289'></a><a href='#L289'>289</a>
+<a name='L290'></a><a href='#L290'>290</a>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a>
+<a name='L298'></a><a href='#L298'>298</a>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a>
+<a name='L323'></a><a href='#L323'>323</a>
+<a name='L324'></a><a href='#L324'>324</a>
+<a name='L325'></a><a href='#L325'>325</a>
+<a name='L326'></a><a href='#L326'>326</a>
+<a name='L327'></a><a href='#L327'>327</a>
+<a name='L328'></a><a href='#L328'>328</a>
+<a name='L329'></a><a href='#L329'>329</a>
+<a name='L330'></a><a href='#L330'>330</a>
+<a name='L331'></a><a href='#L331'>331</a>
+<a name='L332'></a><a href='#L332'>332</a>
+<a name='L333'></a><a href='#L333'>333</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -318,14 +403,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -334,99 +417,123 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -435,21 +542,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -457,41 +565,40 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -499,311 +606,459 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
- * SignalR Connection Service
+ * SSO Authentication Service
  *
- * Handles SignalR connection management with proper error handling and typing.
+ * Handles Office.js SSO authentication with proper error handling and token management.
  *
- * @module signalrService
+ * @module ssoService
  */
 &nbsp;
-<span class="cstat-no" title="statement not covered" >import { HubConnectionBuilder, HubConnection, HubConnectionState, LogLevel } from '@microsoft/signalr';</span>
-<span class="cstat-no" title="statement not covered" >import { handleOfficeError, logError } from '../utils/errorHandler';</span>
-import { SignalRConfig, SignalRMessage } from '../types/signalr.types';
-<span class="cstat-no" title="statement not covered" >import { getValidToken } from './tokenManagerService';</span>
+import { handleOfficeError, logError } from '../utils/errorHandler';
+import { SSOConfig, SSOServiceState, SSOToken, SSOUser, SSOError, SSOErrorCode, JWTPayload } from '../types/sso.types';
 &nbsp;
-let isInitialized = <span class="cstat-no" title="statement not covered" >false;</span>
-let connection: HubConnection | null = <span class="cstat-no" title="statement not covered" >null;</span>
-let currentConfig: SignalRConfig | null = <span class="cstat-no" title="statement not covered" >null;</span>
+let isInitialized = false;
+let ssoState: SSOServiceState = {
+  isInitialized: false,
+  isAuthenticated: false,
+  token: null,
+  error: null,
+  user: null
+};
 &nbsp;
 /**
- * Validates SignalR configuration
+ * Validates SSO configuration
  *
- * @param {SignalRConfig} config Configuration to validate
+ * @param {SSOConfig} config Configuration to validate
  * @throws {Error} If configuration is invalid
  */
-function <span class="fstat-no" title="function not covered" >validateSignalRConfig(</span>config: SignalRConfig): void {
-<span class="cstat-no" title="statement not covered" >  if (!config.hubUrl) {</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error('SignalR Hub URL is required. Please set REACT_APP_SIGNALR_HUB_URL in your .env file.');</span>
-  }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!config.hubUrl.startsWith('https://')) {</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error('SignalR Hub URL must use HTTPS for security. Current URL: ' + config.hubUrl);</span>
-  }
-&nbsp;
-  // Validate authentication configuration
-<span class="cstat-no" title="statement not covered" >  if (!config.ssoTokenProvider &amp;&amp; !config.accessToken) {</span>
-<span class="cstat-no" title="statement not covered" >    console.warn('No authentication configured. Either provide ssoTokenProvider for SSO or accessToken for static auth.');</span>
-  }
-&nbsp;
-  // Optional: Validate token format if static token provided
-<span class="cstat-no" title="statement not covered" >  if (config.accessToken &amp;&amp; config.accessToken.trim().length &lt; 10) {</span>
-<span class="cstat-no" title="statement not covered" >    console.warn('SignalR access token appears to be too short. Please verify your REACT_APP_SIGNALR_ACCESS_TOKEN.');</span>
+function validateSSOConfig(config: SSOConfig): void {
+  // Basic validation - Office.js handles most validation
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof config !== 'object') {
+<span class="cstat-no" title="statement not covered" >    throw new Error('SSO configuration must be an object');</span>
   }
 }
 &nbsp;
 /**
- * Initializes SignalR connection after Office.js is ready
+ * Parses JWT token to extract user information and expiration
  *
- * @param {SignalRConfig} config SignalR configuration options
- * @returns {Promise&lt;HubConnection&gt;} Promise resolving to SignalR connection
- * @throws {Error} If Office.js is not initialized or SignalR connection fails
+ * @param {string} token JWT token string
+ * @returns {SSOToken} Parsed token information
+ * @throws {Error} If token parsing fails
  */
-<span class="cstat-no" title="statement not covered" >export async function <span class="fstat-no" title="function not covered" >i</span>nitializeSignalR(</span>config: SignalRConfig): Promise&lt;HubConnection&gt; {
-  // CRITICAL: Only connect after Office.js is ready
-<span class="cstat-no" title="statement not covered" >  if (!Office.context) {</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error('Office.js must be initialized before SignalR');</span>
+function parseJWTToken(token: string): SSOToken {
+  try {
+    const parts = token.split('.');
+    
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (parts.length !== 3) {
+<span class="cstat-no" title="statement not covered" >      throw new Error('Invalid JWT token format');</span>
+    }
+&nbsp;
+    const payload = JSON.parse(atob(parts[1])) as JWTPayload;
+    
+    if (!payload.exp) {
+      throw new Error('Token does not contain expiry claim');
+    }
+&nbsp;
+    return {
+      token,
+      expiresAt: payload.exp * 1000, // Convert to milliseconds
+      scopes: payload.scp<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>plit(' ') || <span class="branch-1 cbranch-no" title="branch not covered" >[],</span>
+      userId: payload.sub || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
+      audience: payload.aud,
+      issuer: payload.iss
+    };
+  } catch (error) {
+    logError('JWT Token Parsing', error);
+    // Default to 1 hour if parsing fails
+    return {
+      token,
+      expiresAt: Date.now() + 60 * 60 * 1000,
+      scopes: [],
+      userId: 'unknown'
+    };
+  }
+}
+&nbsp;
+/**
+ * Extracts user information from JWT payload
+ *
+ * @param {string} token JWT token string
+ * @returns {SSOUser} User information
+ */
+function extractUserInfo(token: string): SSOUser {
+  try {
+    const parts = token.split('.');
+    const payload = JSON.parse(atob(parts[1])) as JWTPayload;
+    
+    return {
+      displayName: payload.name || payload.preferred_username || 'Unknown User',
+      email: payload.preferred_username || payload.email || '',
+      userId: payload.sub || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
+      tenantId: payload.tid
+    };
+  } catch (error) {
+    logError('User Info Extraction', error);
+    return {
+      displayName: 'Unknown User',
+      email: '',
+      userId: 'unknown'
+    };
+  }
+}
+&nbsp;
+/**
+ * Maps Office.js SSO error codes to user-friendly messages
+ *
+ * @param {any} error Office.js error
+ * @returns {SSOError} Mapped SSO error
+ */
+function mapSSOError(error: any): SSOError {
+  const ssoError: SSOError = {
+    code: error.code || 0,
+    name: 'SSOError',
+    message: error.message || <span class="branch-1 cbranch-no" title="branch not covered" >'Unknown SSO error'</span>
+  };
+&nbsp;
+  switch (error.code) {
+    case SSOErrorCode.USER_NOT_SIGNED_IN:
+      ssoError.message = 'User is not signed in to Office. Please sign in and try again.';
+      break;
+    case SSOErrorCode.USER_ABORTED_CONSENT:
+      ssoError.message = 'User cancelled the consent dialog. Please try again and accept the permissions.';
+      break;
+<span class="branch-2 cbranch-no" title="branch not covered" >    case SSOErrorCode.TOKEN_TYPE_NOT_SUPPORTED:</span>
+<span class="cstat-no" title="statement not covered" >      ssoError.message = 'The requested token type is not supported in this context.';</span>
+<span class="cstat-no" title="statement not covered" >      break;</span>
+    case SSOErrorCode.API_NOT_AVAILABLE:
+      ssoError.message = 'SSO API is not available in the current Office host or version.';
+      break;
+    case SSOErrorCode.ADMIN_CONSENT_REQUIRED:
+      ssoError.message = 'Admin consent is required for this application. Please contact your administrator.';
+      break;
+<span class="branch-5 cbranch-no" title="branch not covered" >    case SSOErrorCode.INTERNAL_ERROR:</span>
+<span class="cstat-no" title="statement not covered" >      ssoError.message = 'Internal error occurred during authentication. Please try again.';</span>
+<span class="cstat-no" title="statement not covered" >      break;</span>
+    default:
+      ssoError.message = `Authentication failed: ${error.message || <span class="branch-1 cbranch-no" title="branch not covered" >'Unknown error'}</span>`;
+  }
+&nbsp;
+  return ssoError;
+}
+&nbsp;
+/**
+ * Initializes SSO authentication after Office.js is ready
+ *
+ * @param {SSOConfig} config SSO configuration options
+ * @returns {Promise&lt;SSOServiceState&gt;} Promise resolving to SSO state
+ * @throws {Error} If Office.js is not initialized or SSO fails
+ */
+export async function initializeSSO(config: SSOConfig = {}): Promise&lt;SSOServiceState&gt; {
+  // CRITICAL: Only authenticate after Office.js is ready
+  if (!Office.context) {
+    throw new Error('Office.js must be initialized before SSO');
   }
 &nbsp;
   // Validate configuration
-<span class="cstat-no" title="statement not covered" >  validateSignalRConfig(config);</span>
+  validateSSOConfig(config);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (isInitialized &amp;&amp; connection) {</span>
-<span class="cstat-no" title="statement not covered" >    return connection;</span>
+  if (isInitialized &amp;&amp; ssoState.isAuthenticated &amp;&amp; ssoState.token) {
+    return ssoState;
   }
 &nbsp;
   try {
-    // PATTERN: Build connection with automatic reconnection and SSO token provider
-<span class="cstat-no" title="statement not covered" >    connection = new HubConnectionBuilder()</span>
-      .withUrl(config.hubUrl, {
-        accessTokenFactory: <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async () =&gt; {</span></span>
-          try {
-            // Prefer SSO token provider for fresh tokens
-            if (<span class="cstat-no" title="statement not covered" >config.</span>ssoTokenProvider) {
-<span class="cstat-no" title="statement not covered" >              return <span class="cstat-no" title="statement not covered" >await config.ssoTokenProvider();</span></span>
-            }
-            // Use TokenManager as fallback for SSO
-            if (<span class="cstat-no" title="statement not covered" >!c</span>onfig.accessToken) {
-<span class="cstat-no" title="statement not covered" >              return <span class="cstat-no" title="statement not covered" >await getValidToken();</span></span>
-            }
-            // Fallback to static token for backward compatibility
-<span class="cstat-no" title="statement not covered" >            return config.accessToken || '';</span>
-          } catch (error) {
-<span class="cstat-no" title="statement not covered" >            logError('SignalR Token Factory', error);</span>
-            // Return static token if SSO fails
-<span class="cstat-no" title="statement not covered" >            return config.accessToken || '';</span>
-          }
-        }
-      })
-      .withAutomaticReconnect(config.reconnectPolicy || [0, 2000, 10000, 30000]) // exponential backoff
-      .configureLogging(LogLevel.Information)
-      .build();
+    // Default SSO configuration
+    const defaultConfig: SSOConfig = {
+      allowSignInPrompt: true,
+      allowConsentPrompt: true,
+      forMSGraphAccess: false,
+      ...config
+    };
 &nbsp;
-    // PATTERN: Event handlers for connection lifecycle
-<span class="cstat-no" title="statement not covered" >    connection.onclose(<span class="fstat-no" title="function not covered" >async (e</span>rror<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >) =&gt; {</span></span></span>
-      // Use existing error handler pattern
-      const <span class="cstat-no" title="statement not covered" >message = handleOfficeError('SignalR Connection', error);</span>
-<span class="cstat-no" title="statement not covered" >      logError('SignalR Connection Closed', error);</span>
-<span class="cstat-no" title="statement not covered" >      isInitialized = false;</span>
-    });
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    connection.onreconnecting(<span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      logError('SignalR Reconnecting', error);</span>
-    });
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    connection.onreconnected(<span class="fstat-no" title="function not covered" >(c</span>onnectionId) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      console.log('SignalR reconnected with connection ID:', connectionId);</span>
-    });
-&nbsp;
-<span class="cstat-no" title="statement not covered" >    await connection.start();</span>
-<span class="cstat-no" title="statement not covered" >    isInitialized = true;</span>
-<span class="cstat-no" title="statement not covered" >    currentConfig = config;</span>
-<span class="cstat-no" title="statement not covered" >    console.log('SignalR connected successfully');</span>
+    // Get access token from Office.js
+    const token = await OfficeRuntime.auth.getAccessToken(defaultConfig);
     
-<span class="cstat-no" title="statement not covered" >    return connection;</span>
+    // Parse token and extract user info
+    const parsedToken = parseJWTToken(token);
+    const userInfo = extractUserInfo(token);
+&nbsp;
+    // Update SSO state
+    ssoState = {
+      isInitialized: true,
+      isAuthenticated: true,
+      token: parsedToken,
+      error: null,
+      user: userInfo
+    };
+&nbsp;
+    isInitialized = true;
+    console.log('SSO initialized successfully', { userId: userInfo.userId, email: userInfo.email });
+    
+    return ssoState;
     
   } catch (error) {
     // PATTERN: Consistent error handling
-    const <span class="cstat-no" title="statement not covered" >message = handleOfficeError('SignalR Initialization', error);</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error(message);</span>
+    const mappedError = mapSSOError(error);
+    ssoState = {
+      isInitialized: true,
+      isAuthenticated: false,
+      token: null,
+      error: mappedError,
+      user: null
+    };
+&nbsp;
+    logError('SSO Initialization', mappedError);
+    throw mappedError;
   }
 }
 &nbsp;
 /**
- * Checks if SignalR has been initialized
+ * Checks if SSO has been initialized
  *
- * @returns {boolean} True if SignalR is initialized
+ * @returns {boolean} True if SSO is initialized
  */
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >i</span>sSignalRInitialized(</span>): boolean {
-<span class="cstat-no" title="statement not covered" >  return isInitialized;</span>
+export function isSSOInitialized(): boolean {
+  return isInitialized;
 }
 &nbsp;
 /**
- * Gets the SignalR connection (throws if not initialized)
+ * Checks if user is currently authenticated via SSO
  *
- * @returns {HubConnection} SignalR connection
- * @throws {Error} If SignalR is not initialized
+ * @returns {boolean} True if authenticated
  */
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >g</span>etSignalRConnection(</span>): HubConnection {
-<span class="cstat-no" title="statement not covered" >  if (!connection) {</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error('SignalR is not initialized. Call initializeSignalR() first.');</span>
+export function isSSOAuthenticated(): boolean {
+  return ssoState.isAuthenticated &amp;&amp; ssoState.token !== null;
+}
+&nbsp;
+/**
+ * Gets the current SSO state
+ *
+ * @returns {SSOServiceState} Current SSO state
+ */
+export function <span class="fstat-no" title="function not covered" >getSSOState(</span>): SSOServiceState {
+<span class="cstat-no" title="statement not covered" >  return { ...ssoState };</span>
+}
+&nbsp;
+/**
+ * Gets the current access token if authenticated
+ *
+ * @returns {string | null} Access token or null if not authenticated
+ */
+export function getCurrentToken(): string | null {
+  return ssoState.token?.token || null;
+}
+&nbsp;
+/**
+ * Gets the current user information if authenticated
+ *
+ * @returns {SSOUser | null} User info or null if not authenticated
+ */
+export function getCurrentUser(): SSOUser | null {
+  return ssoState.user;
+}
+&nbsp;
+/**
+ * Checks if the current token is still valid (not expired)
+ *
+ * @returns {boolean} True if token exists and is not expired
+ */
+export function isTokenValid(): boolean {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!ssoState.token) {
+<span class="cstat-no" title="statement not covered" >    return false;</span>
   }
-<span class="cstat-no" title="statement not covered" >  return connection;</span>
+  
+  // Add 5-minute buffer before expiration
+  const bufferMs = 5 * 60 * 1000;
+  return ssoState.token.expiresAt &gt; Date.now() + bufferMs;
 }
 &nbsp;
 /**
- * Gets the current connection state
+ * Gets the time until token expiry
  *
- * @returns {HubConnectionState} Current connection state
+ * @returns {number | null} Time in milliseconds until expiry, or null if no token
  */
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >g</span>etConnectionState(</span>): HubConnectionState {
-<span class="cstat-no" title="statement not covered" >  return connection?.state || HubConnectionState.Disconnected;</span>
-}
-&nbsp;
-/**
- * Checks if SignalR connection is currently connected
- *
- * @returns {boolean} True if connected
- */
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >i</span>sConnected(</span>): boolean {
-<span class="cstat-no" title="statement not covered" >  return connection?.state === HubConnectionState.Connected;</span>
-}
-&nbsp;
-/**
- * Sends a message through SignalR connection
- *
- * @param {string} methodName Hub method name
- * @param {any} data Data to send
- * @returns {Promise&lt;void&gt;} Promise resolving when message is sent
- * @throws {Error} If not connected or send fails
- */
-<span class="cstat-no" title="statement not covered" >export async function <span class="fstat-no" title="function not covered" >s</span>endMessage(</span>methodName: string, data: any): Promise&lt;void&gt; {
-<span class="cstat-no" title="statement not covered" >  if (!connection) {</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error('SignalR is not initialized');</span>
+export function getTimeUntilExpiry(): number | null {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!ssoState.token) {
+<span class="cstat-no" title="statement not covered" >    return null;</span>
   }
+  
+  return Math.max(0, ssoState.token.expiresAt - Date.now());
+}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (connection.state !== HubConnectionState.Connected) {</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error('SignalR is not connected');</span>
+/**
+ * Refreshes the SSO token if needed
+ *
+ * @param {SSOConfig} config SSO configuration options
+ * @returns {Promise&lt;string&gt;} Promise resolving to fresh token
+ * @throws {Error} If refresh fails
+ */
+export async function refreshToken(<span class="missing-if-branch" title="else path not taken" >E</span>config: SSOConfig = {}): Promise&lt;string&gt; {
+  if (!Office.context) {
+    throw new Error('Office.js context not available');
   }
 &nbsp;
   try {
-<span class="cstat-no" title="statement not covered" >    await connection.invoke(methodName, data);</span>
+    // Always get a fresh token
+    const token = await OfficeRuntime.auth.getAccessToken({
+      allowSignInPrompt: false, // Don't prompt during refresh
+      allowConsentPrompt: false,
+      forMSGraphAccess: false,
+      ...config
+    });
+&nbsp;
+    // Update stored token
+    const parsedToken = parseJWTToken(token);
+    ssoState.token = parsedToken;
+    ssoState.isAuthenticated = true;
+    ssoState.error = null;
+&nbsp;
+    console.log('SSO token refreshed successfully');
+    return token;
+&nbsp;
   } catch (error) {
-    const <span class="cstat-no" title="statement not covered" >message = handleOfficeError('SignalR Send Message', error);</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error(message);</span>
+    const mappedError = mapSSOError(error);
+    ssoState.error = mappedError;
+    ssoState.isAuthenticated = false;
+    
+    logError('SSO Token Refresh', mappedError);
+    throw mappedError;
   }
 }
 &nbsp;
 /**
- * Registers a handler for incoming SignalR messages
- *
- * @param {string} methodName Hub method name to listen for
- * @param {Function} handler Function to handle incoming messages
- * @throws {Error} If connection is not available
+ * Clears the current SSO state (for testing/logout scenarios)
  */
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >o</span>nMessage(</span>methodName: string, handler: (...args: any[]) =&gt; void): void {
-<span class="cstat-no" title="statement not covered" >  if (!connection) {</span>
-<span class="cstat-no" title="statement not covered" >    throw new Error('SignalR is not initialized');</span>
-  }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  connection.on(methodName, handler);</span>
-}
-&nbsp;
-/**
- * Removes a message handler
- *
- * @param {string} methodName Hub method name
- * @param {Function} handler Handler function to remove
- */
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >o</span>ffMessage(</span>methodName: string, handler?: (...args: any[]) =&gt; void): void {
-<span class="cstat-no" title="statement not covered" >  if (!connection) {</span>
-<span class="cstat-no" title="statement not covered" >    return;</span>
-  }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  if (handler) {</span>
-<span class="cstat-no" title="statement not covered" >    connection.off(methodName, handler);</span>
-  } else {
-<span class="cstat-no" title="statement not covered" >    connection.off(methodName);</span>
-  }
-}
-&nbsp;
-/**
- * Gracefully stops the SignalR connection
- *
- * @returns {Promise&lt;void&gt;} Promise resolving when connection is stopped
- */
-<span class="cstat-no" title="statement not covered" >export async function <span class="fstat-no" title="function not covered" >s</span>topSignalR(</span>): Promise&lt;void&gt; {
-<span class="cstat-no" title="statement not covered" >  if (!connection) {</span>
-<span class="cstat-no" title="statement not covered" >    return;</span>
-  }
-&nbsp;
-  try {
-<span class="cstat-no" title="statement not covered" >    await connection.stop();</span>
-<span class="cstat-no" title="statement not covered" >    console.log('SignalR connection stopped');</span>
-  } catch (error) {
-<span class="cstat-no" title="statement not covered" >    logError('SignalR Stop', error);</span>
-  } finally {
-<span class="cstat-no" title="statement not covered" >    connection = null;</span>
-<span class="cstat-no" title="statement not covered" >    isInitialized = false;</span>
-<span class="cstat-no" title="statement not covered" >    currentConfig = null;</span>
-  }
-}
-&nbsp;
-/**
- * Gets the current SignalR configuration
- *
- * @returns {SignalRConfig | null} Current configuration or null if not initialized
- */
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >g</span>etCurrentConfig(</span>): SignalRConfig | null {
-<span class="cstat-no" title="statement not covered" >  return currentConfig;</span>
+export function clearSSOState(): void {
+  ssoState = {
+    isInitialized: false,
+    isAuthenticated: false,
+    token: null,
+    error: null,
+    user: null
+  };
+  isInitialized = false;
+  console.log('SSO state cleared');
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

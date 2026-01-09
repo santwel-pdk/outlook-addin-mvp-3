@@ -9,6 +9,7 @@
 import { HubConnectionBuilder, HubConnection, HubConnectionState, LogLevel } from '@microsoft/signalr';
 import { handleOfficeError, logError } from '../utils/errorHandler';
 import { SignalRConfig, SignalRMessage } from '../types/signalr.types';
+import { getValidToken } from './tokenManagerService';
 
 let isInitialized = false;
 let connection: HubConnection | null = null;
@@ -29,7 +30,12 @@ function validateSignalRConfig(config: SignalRConfig): void {
     throw new Error('SignalR Hub URL must use HTTPS for security. Current URL: ' + config.hubUrl);
   }
 
-  // Optional: Validate token format if provided
+  // Validate authentication configuration
+  if (!config.ssoTokenProvider && !config.accessToken) {
+    console.warn('No authentication configured. Either provide ssoTokenProvider for SSO or accessToken for static auth.');
+  }
+
+  // Optional: Validate token format if static token provided
   if (config.accessToken && config.accessToken.trim().length < 10) {
     console.warn('SignalR access token appears to be too short. Please verify your REACT_APP_SIGNALR_ACCESS_TOKEN.');
   }
@@ -56,10 +62,27 @@ export async function initializeSignalR(config: SignalRConfig): Promise<HubConne
   }
 
   try {
-    // PATTERN: Build connection with automatic reconnection
+    // PATTERN: Build connection with automatic reconnection and SSO token provider
     connection = new HubConnectionBuilder()
       .withUrl(config.hubUrl, {
-        accessTokenFactory: () => config.accessToken || ''
+        accessTokenFactory: async () => {
+          try {
+            // Prefer SSO token provider for fresh tokens
+            if (config.ssoTokenProvider) {
+              return await config.ssoTokenProvider();
+            }
+            // Use TokenManager as fallback for SSO
+            if (!config.accessToken) {
+              return await getValidToken();
+            }
+            // Fallback to static token for backward compatibility
+            return config.accessToken || '';
+          } catch (error) {
+            logError('SignalR Token Factory', error);
+            // Return static token if SSO fails
+            return config.accessToken || '';
+          }
+        }
       })
       .withAutomaticReconnect(config.reconnectPolicy || [0, 2000, 10000, 30000]) // exponential backoff
       .configureLogging(LogLevel.Information)

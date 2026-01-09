@@ -34,7 +34,8 @@ export interface SignalRMessage {
  */
 export interface SignalRConfig {
   hubUrl: string;
-  accessToken?: string;
+  accessToken?: string; // Keep for backward compatibility
+  ssoTokenProvider?: () => Promise<string>; // NEW: SSO token factory
   reconnectPolicy?: number[];
 }
 

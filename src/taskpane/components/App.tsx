@@ -2,6 +2,7 @@ import * as React from "react";
 import Header from "./Header";
 import EmailInfo from "./EmailInfo";
 import SignalRStatus from "./SignalRStatus";
+import SSOStatus from "./SSOStatus";
 import { makeStyles } from "@fluentui/react-components";
 import { useMailboxItem } from "../hooks/useMailboxItem";
 import { useSignalR } from "../hooks/useSignalR";
@@ -41,6 +42,8 @@ const App: React.FC<AppProps> = (props: AppProps) => {
       </div> */}
 
       <EmailInfo emailData={emailData} isLoading={isLoading} error={error} />
+      
+      <SSOStatus />
       
       <SignalRStatus signalrState={signalrState} />
     </div>

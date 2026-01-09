@@ -119,4 +119,8 @@
       </Resources>
     </VersionOverrides>
   </VersionOverrides>
+  <WebApplicationInfo>
+    <Id>31dbc496-64bc-477f-be82-e723475f1575</Id>
+    <Resource>api://victorious-pond-03362ac0f.1.azurestaticapps.net/31dbc496-64bc-477f-be82-e723475f1575</Resource>
+  </WebApplicationInfo>
 </OfficeApp>

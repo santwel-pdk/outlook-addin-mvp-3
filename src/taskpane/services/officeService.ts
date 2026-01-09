@@ -7,6 +7,9 @@
  */
 
 import { enforceWebView2 } from './webview2Service';
+import { initializeSSO, clearSSOState } from './ssoService';
+import { startTokenAutoRefresh } from './tokenManagerService';
+import { logError } from '../utils/errorHandler';
 
 let isInitialized = false;
 let officeContext: Office.Context | null = null;
@@ -24,7 +27,7 @@ export async function initializeOffice(): Promise<Office.Context> {
 
   return new Promise((resolve, reject) => {
     try {
-      Office.onReady((info) => {
+      Office.onReady(async (info) => {
         try {
           // Enforce WebView2 before proceeding
           enforceWebView2();
@@ -33,6 +36,25 @@ export async function initializeOffice(): Promise<Office.Context> {
             officeContext = Office.context;
             isInitialized = true;
             console.log('Office.js initialized successfully for Outlook');
+            
+            // Initialize SSO after Office.js is ready
+            try {
+              await initializeSSO({
+                allowSignInPrompt: true,
+                allowConsentPrompt: true,
+                forMSGraphAccess: false
+              });
+              
+              // Start automatic token refresh monitoring
+              startTokenAutoRefresh();
+              
+              console.log('SSO initialized successfully');
+            } catch (ssoError) {
+              // Don't fail Office initialization if SSO fails
+              logError('SSO Initialization', ssoError);
+              console.warn('SSO initialization failed, add-in will work without SSO features');
+            }
+            
             resolve(Office.context);
           } else {
             reject(new Error(`Unsupported Office host: ${info.host}`));
