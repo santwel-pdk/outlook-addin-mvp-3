@@ -28,16 +28,17 @@ const App: React.FC<AppProps> = (props: AppProps) => {
   const styles = useStyles();
   const { emailData, isLoading, error } = useMailboxItem();
   const signalrState = useSignalR();
-  const platform = getPlatformName();
-  const browserEngine = getBrowserEngine();
+  //const platform = getPlatformName();
+  //const browserEngine = getBrowserEngine();
+  const dummyTitle = props.title;
 
   return (
     <div className={styles.root}>
-      <Header logo="assets/logo-filled.png" title={props.title} message="Welcome" />
+      {/* <Header logo="assets/logo-filled.png" title={props.title} message="Welcome" />
 
       <div className={styles.platformInfo}>
         Platform: {platform} | Engine: {browserEngine}
-      </div>
+      </div> */}
 
       <EmailInfo emailData={emailData} isLoading={isLoading} error={error} />
       
