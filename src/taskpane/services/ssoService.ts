@@ -113,6 +113,9 @@ function mapSSOError(error: any): SSOError {
   };
 
   switch (error.code) {
+    case SSOErrorCode.IDENTITY_API_NOT_SUPPORTED:
+      ssoError.message = 'The identity API is not supported for this add-in. Please check the manifest configuration.';
+      break;
     case SSOErrorCode.USER_NOT_SIGNED_IN:
       ssoError.message = 'User is not signed in to Office. Please sign in and try again.';
       break;

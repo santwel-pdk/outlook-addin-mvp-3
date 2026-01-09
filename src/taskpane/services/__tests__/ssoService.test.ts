@@ -143,6 +143,16 @@ describe('ssoService', () => {
       });
     });
 
+    it('should handle identity API not supported error (13000)', async () => {
+      const error = { code: SSOErrorCode.IDENTITY_API_NOT_SUPPORTED, message: 'Identity API not supported' };
+      mockGetAccessToken.mockRejectedValue(error);
+      
+      await expect(initializeSSO(mockConfig)).rejects.toMatchObject({
+        code: SSOErrorCode.IDENTITY_API_NOT_SUPPORTED,
+        message: 'The identity API is not supported for this add-in. Please check the manifest configuration.'
+      });
+    });
+
     it('should handle admin consent required error (13012)', async () => {
       const error = { code: SSOErrorCode.ADMIN_CONSENT_REQUIRED, message: 'Admin consent required' };
       mockGetAccessToken.mockRejectedValue(error);

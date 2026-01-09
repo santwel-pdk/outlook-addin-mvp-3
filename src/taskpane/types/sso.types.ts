@@ -61,6 +61,7 @@ export interface SSOServiceState {
  * Office.js SSO error codes enum
  */
 export enum SSOErrorCode {
+  IDENTITY_API_NOT_SUPPORTED = 13000,
   USER_NOT_SIGNED_IN = 13001,
   USER_ABORTED_CONSENT = 13002,
   TOKEN_TYPE_NOT_SUPPORTED = 13003,

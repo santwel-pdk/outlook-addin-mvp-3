@@ -99,6 +99,9 @@ export function handleSSOError(error: any): string {
 
   // Check if it's a known SSO error code
   switch (error.code) {
+    case SSOErrorCode.IDENTITY_API_NOT_SUPPORTED:
+      return 'Single sign-on is not properly configured for this add-in. Please check the manifest configuration.';
+    
     case SSOErrorCode.USER_NOT_SIGNED_IN:
       return 'Please sign in to your Microsoft 365 account and try again.';
     
@@ -166,6 +169,9 @@ export function isSSOError(error: any): boolean {
  */
 export function getSSOErrorGuidance(errorCode: number): string {
   switch (errorCode) {
+    case SSOErrorCode.IDENTITY_API_NOT_SUPPORTED:
+      return 'This add-in requires proper SSO configuration in the manifest. Contact your administrator.';
+    
     case SSOErrorCode.USER_NOT_SIGNED_IN:
       return 'Sign in to your Microsoft 365 account in Office, then refresh this add-in.';
     
