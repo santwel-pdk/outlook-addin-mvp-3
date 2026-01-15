@@ -118,13 +118,17 @@ describe('signalrService', () => {
 
     it('should establish connection successfully', async () => {
       mockConnection.state = HubConnectionState.Connected;
-      
+
       const result = await initializeSignalR(mockConfig);
-      
+
       expect(result).toBe(mockConnection);
       expect(mockHubConnectionBuilder.withUrl).toHaveBeenCalledWith(
         'https://test-hub.com/notifications',
-        { accessTokenFactory: expect.any(Function) }
+        {
+          accessTokenFactory: expect.any(Function),
+          skipNegotiation: false,
+          transport: undefined
+        }
       );
       expect(mockHubConnectionBuilder.withAutomaticReconnect).toHaveBeenCalledWith([0, 1000, 5000]);
       expect(mockStart).toHaveBeenCalled();

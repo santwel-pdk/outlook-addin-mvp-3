@@ -6,14 +6,17 @@
  * @module signalrService
  */
 
-import { HubConnectionBuilder, HubConnection, HubConnectionState, LogLevel } from '@microsoft/signalr';
+import { HubConnectionBuilder, HubConnection, HubConnectionState, LogLevel, HttpTransportType } from '@microsoft/signalr';
 import { handleOfficeError, logError } from '../utils/errorHandler';
-import { SignalRConfig, SignalRMessage } from '../types/signalr.types';
+import { SignalRConfig, SignalRMessage, SignalRConnectionInfo } from '../types/signalr.types';
 import { getValidToken } from './tokenManagerService';
+import { negotiate, isNegotiateConfigured } from './negotiateService';
 
 let isInitialized = false;
 let connection: HubConnection | null = null;
 let currentConfig: SignalRConfig | null = null;
+let currentConnectionInfo: SignalRConnectionInfo | null = null;
+let isUsingNegotiateFlow = false;
 
 /**
  * Validates SignalR configuration
@@ -30,7 +33,18 @@ function validateSignalRConfig(config: SignalRConfig): void {
     throw new Error('SignalR Hub URL must use HTTPS for security. Current URL: ' + config.hubUrl);
   }
 
-  // Validate authentication configuration
+  // When using negotiate flow, require Azure token provider
+  if (config.negotiateUrl) {
+    if (!config.negotiateUrl.startsWith('https://')) {
+      throw new Error('SignalR Negotiate URL must use HTTPS for security.');
+    }
+    if (!config.azureTokenProvider && !config.ssoTokenProvider && !config.accessToken) {
+      console.warn('Negotiate URL configured but no token provider available for authentication.');
+    }
+    return; // Skip other auth validation for negotiate flow
+  }
+
+  // Validate authentication configuration for direct connection
   if (!config.ssoTokenProvider && !config.accessToken) {
     console.warn('No authentication configured. Either provide ssoTokenProvider for SSO or accessToken for static auth.');
   }
@@ -43,6 +57,7 @@ function validateSignalRConfig(config: SignalRConfig): void {
 
 /**
  * Initializes SignalR connection after Office.js is ready
+ * Supports both direct connection and negotiate flow for Azure SignalR Service
  *
  * @param {SignalRConfig} config SignalR configuration options
  * @returns {Promise<HubConnection>} Promise resolving to SignalR connection
@@ -62,55 +77,113 @@ export async function initializeSignalR(config: SignalRConfig): Promise<HubConne
   }
 
   try {
-    // PATTERN: Build connection with automatic reconnection and SSO token provider
-    connection = new HubConnectionBuilder()
-      .withUrl(config.hubUrl, {
-        accessTokenFactory: async () => {
-          try {
-            // Prefer SSO token provider for fresh tokens
-            if (config.ssoTokenProvider) {
-              return await config.ssoTokenProvider();
-            }
-            // Use TokenManager as fallback for SSO
-            if (!config.accessToken) {
-              return await getValidToken();
-            }
-            // Fallback to static token for backward compatibility
-            return config.accessToken || '';
-          } catch (error) {
-            logError('SignalR Token Factory', error);
-            // Return static token if SSO fails
-            return config.accessToken || '';
-          }
+    let connectionUrl = config.hubUrl;
+    let tokenFactory: () => Promise<string>;
+    let skipNegotiation = false;
+    let transportType: HttpTransportType | undefined;
+
+    // NEW: Check if using negotiate flow (Azure SignalR Service)
+    if (config.negotiateUrl) {
+      console.log('SignalR: Using negotiate flow for Azure SignalR Service');
+      isUsingNegotiateFlow = true;
+
+      // Get bearer token for negotiate endpoint
+      let bearerToken: string;
+      try {
+        if (config.azureTokenProvider) {
+          bearerToken = await config.azureTokenProvider();
+        } else if (config.ssoTokenProvider) {
+          bearerToken = await config.ssoTokenProvider();
+        } else if (config.accessToken) {
+          bearerToken = config.accessToken;
+        } else {
+          bearerToken = await getValidToken();
         }
+      } catch (tokenError) {
+        logError('SignalR Token Acquisition for Negotiate', tokenError);
+        throw new Error('Failed to acquire token for SignalR negotiation');
+      }
+
+      // Call negotiate endpoint
+      const connectionInfo = await negotiate(
+        { negotiateUrl: config.negotiateUrl },
+        bearerToken
+      );
+
+      currentConnectionInfo = connectionInfo;
+      connectionUrl = connectionInfo.url;
+      tokenFactory = () => Promise.resolve(connectionInfo.accessToken);
+
+      // CRITICAL: Must set skipNegotiation when using pre-negotiated URL
+      skipNegotiation = true;
+      transportType = HttpTransportType.WebSockets;
+
+      console.log('SignalR: Negotiation successful, connecting to:', connectionUrl);
+    } else {
+      // Existing direct connection flow
+      isUsingNegotiateFlow = false;
+      tokenFactory = async () => {
+        try {
+          // Prefer SSO token provider for fresh tokens
+          if (config.ssoTokenProvider) {
+            return await config.ssoTokenProvider();
+          }
+          // Use TokenManager as fallback for SSO
+          if (!config.accessToken) {
+            return await getValidToken();
+          }
+          // Fallback to static token for backward compatibility
+          return config.accessToken || '';
+        } catch (error) {
+          logError('SignalR Token Factory', error);
+          // Return static token if SSO fails
+          return config.accessToken || '';
+        }
+      };
+    }
+
+    // Build connection with appropriate configuration
+    const builder = new HubConnectionBuilder()
+      .withUrl(connectionUrl, {
+        accessTokenFactory: tokenFactory,
+        skipNegotiation: skipNegotiation,
+        transport: transportType
       })
-      .withAutomaticReconnect(config.reconnectPolicy || [0, 2000, 10000, 30000]) // exponential backoff
-      .configureLogging(LogLevel.Information)
-      .build();
+      .withAutomaticReconnect(config.reconnectPolicy || [0, 2000, 10000, 30000])
+      .configureLogging(LogLevel.Information);
+
+    connection = builder.build();
 
     // PATTERN: Event handlers for connection lifecycle
     connection.onclose(async (error) => {
-      // Use existing error handler pattern
-      const message = handleOfficeError('SignalR Connection', error);
+      handleOfficeError('SignalR Connection', error);
       logError('SignalR Connection Closed', error);
       isInitialized = false;
+      currentConnectionInfo = null;
     });
 
     connection.onreconnecting((error) => {
       logError('SignalR Reconnecting', error);
     });
 
-    connection.onreconnected((connectionId) => {
+    connection.onreconnected(async (connectionId) => {
       console.log('SignalR reconnected with connection ID:', connectionId);
+
+      // CRITICAL: Re-negotiate if using negotiate flow (token may have expired)
+      if (isUsingNegotiateFlow && config.negotiateUrl) {
+        console.log('SignalR: Connection restored - negotiate token may need refresh on next reconnect');
+        // Note: The current connection should still work, but if it drops again,
+        // we may need to re-negotiate. For now, just log the reconnection.
+      }
     });
 
     await connection.start();
     isInitialized = true;
     currentConfig = config;
     console.log('SignalR connected successfully');
-    
+
     return connection;
-    
+
   } catch (error) {
     // PATTERN: Consistent error handling
     const message = handleOfficeError('SignalR Initialization', error);
@@ -235,7 +308,27 @@ export async function stopSignalR(): Promise<void> {
     connection = null;
     isInitialized = false;
     currentConfig = null;
+    currentConnectionInfo = null;
+    isUsingNegotiateFlow = false;
   }
+}
+
+/**
+ * Checks if currently using negotiate flow
+ *
+ * @returns {boolean} True if using negotiate flow
+ */
+export function isUsingNegotiate(): boolean {
+  return isUsingNegotiateFlow;
+}
+
+/**
+ * Gets the current connection info from negotiate (if using negotiate flow)
+ *
+ * @returns {SignalRConnectionInfo | null} Connection info or null
+ */
+export function getNegotiateConnectionInfo(): SignalRConnectionInfo | null {
+  return currentConnectionInfo;
 }
 
 /**

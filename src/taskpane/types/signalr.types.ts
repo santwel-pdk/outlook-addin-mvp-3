@@ -34,8 +34,10 @@ export interface SignalRMessage {
  */
 export interface SignalRConfig {
   hubUrl: string;
+  negotiateUrl?: string; // NEW: If provided, use negotiate flow for Azure SignalR Service
   accessToken?: string; // Keep for backward compatibility
-  ssoTokenProvider?: () => Promise<string>; // NEW: SSO token factory
+  ssoTokenProvider?: () => Promise<string>; // SSO token factory
+  azureTokenProvider?: () => Promise<string>; // NEW: Azure AD token provider for negotiate
   reconnectPolicy?: number[];
 }
 
@@ -57,4 +59,35 @@ export interface SignalRServiceState {
   connection: HubConnection | null;
   config: SignalRConfig | null;
   error: Error | null;
+}
+
+/**
+ * SignalR negotiate endpoint response
+ * From Azure SignalR Service or custom negotiate endpoint
+ * @see https://learn.microsoft.com/en-us/azure/azure-signalr/signalr-concept-internals#server-to-client-negotiate
+ */
+export interface NegotiateResponse {
+  url: string;           // SignalR hub URL to connect to
+  accessToken: string;   // Bearer token for this connection
+  availableTransports?: Array<{
+    transport: string;
+    transferFormats: string[];
+  }>;
+}
+
+/**
+ * SignalR connection info extracted from negotiate response
+ */
+export interface SignalRConnectionInfo {
+  url: string;
+  accessToken: string;
+}
+
+/**
+ * Negotiate service configuration
+ */
+export interface NegotiateConfig {
+  negotiateUrl: string;
+  maxRetries?: number;
+  retryDelayMs?: number;
 }

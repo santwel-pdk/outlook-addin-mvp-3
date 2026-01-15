@@ -18,9 +18,40 @@ export interface EmailData {
 }
 
 /**
- * Outlook item type (Message in Read or Compose mode)
+ * Outlook item type (Message or Appointment in Read or Compose mode)
  */
-export type OutlookItem = Office.MessageRead | Office.MessageCompose;
+export type OutlookItem =
+  | Office.MessageRead
+  | Office.MessageCompose
+  | Office.AppointmentRead
+  | Office.AppointmentCompose;
+
+/**
+ * Appointment data structure for displaying appointment information
+ */
+export interface AppointmentData {
+  /** Appointment subject/title */
+  subject: string;
+  /** Organizer email or display name */
+  organizer: string;
+  /** List of required attendees */
+  requiredAttendees: string[];
+  /** List of optional attendees */
+  optionalAttendees: string[];
+  /** Start date/time */
+  start: Date;
+  /** End date/time */
+  end: Date;
+  /** Location of the appointment (optional) */
+  location?: string;
+  /** Whether this is an all-day event (optional) */
+  isAllDay?: boolean;
+}
+
+/**
+ * Union type for displayable item data (email or appointment)
+ */
+export type ItemDisplayData = EmailData | AppointmentData;
 
 /**
  * Office context wrapper with initialization state

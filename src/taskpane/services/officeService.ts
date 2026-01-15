@@ -7,8 +7,9 @@
  */
 
 import { enforceWebView2 } from './webview2Service';
-import { initializeSSO, clearSSOState } from './ssoService';
+import { initializeSSO } from './ssoService';
 import { startTokenAutoRefresh } from './tokenManagerService';
+import { registerItemChangedHandler } from './contextService';
 import { logError } from '../utils/errorHandler';
 
 let isInitialized = false;
@@ -44,17 +45,27 @@ export async function initializeOffice(): Promise<Office.Context> {
                 allowConsentPrompt: true,
                 forMSGraphAccess: false
               });
-              
+
               // Start automatic token refresh monitoring
               startTokenAutoRefresh();
-              
+
               console.log('SSO initialized successfully');
             } catch (ssoError) {
               // Don't fail Office initialization if SSO fails
               logError('SSO Initialization', ssoError);
               console.warn('SSO initialization failed, add-in will work without SSO features');
             }
-            
+
+            // Register ItemChanged handler for pinned task pane support
+            try {
+              await registerItemChangedHandler();
+              console.log('ItemChanged handler registered for context switching');
+            } catch (contextError) {
+              // Don't fail Office initialization if ItemChanged registration fails
+              logError('ItemChanged Registration', contextError);
+              console.warn('ItemChanged handler registration failed, context switching may not work');
+            }
+
             resolve(Office.context);
           } else {
             reject(new Error(`Unsupported Office host: ${info.host}`));
