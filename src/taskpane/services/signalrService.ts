@@ -8,7 +8,7 @@
 
 import { HubConnectionBuilder, HubConnection, HubConnectionState, LogLevel, HttpTransportType } from '@microsoft/signalr';
 import { handleOfficeError, logError } from '../utils/errorHandler';
-import { SignalRConfig, SignalRMessage, SignalRConnectionInfo } from '../types/signalr.types';
+import { SignalRConfig, SignalRMessage, SignalRConnectionInfo, SignalRHandlerConfig } from '../types/signalr.types';
 import { getValidToken } from './tokenManagerService';
 import { negotiate, isNegotiateConfigured } from './negotiateService';
 
@@ -84,7 +84,7 @@ export async function initializeSignalR(config: SignalRConfig): Promise<HubConne
 
     // NEW: Check if using negotiate flow (Azure SignalR Service)
     if (config.negotiateUrl) {
-      console.log('SignalR: Using negotiate flow for Azure SignalR Service');
+      console.log('[SignalR] Using negotiate flow for Azure SignalR Service');
       isUsingNegotiateFlow = true;
 
       // Get bearer token for negotiate endpoint
@@ -118,7 +118,7 @@ export async function initializeSignalR(config: SignalRConfig): Promise<HubConne
       skipNegotiation = true;
       transportType = HttpTransportType.WebSockets;
 
-      console.log('SignalR: Negotiation successful, connecting to:', connectionUrl);
+      console.log('[SignalR] Negotiation successful, connecting to:', connectionUrl);
     } else {
       // Existing direct connection flow
       isUsingNegotiateFlow = false;
@@ -156,6 +156,7 @@ export async function initializeSignalR(config: SignalRConfig): Promise<HubConne
 
     // PATTERN: Event handlers for connection lifecycle
     connection.onclose(async (error) => {
+      console.log('[SignalR] Connection closed', error ? `- Error: ${error.message}` : '');
       handleOfficeError('SignalR Connection', error);
       logError('SignalR Connection Closed', error);
       isInitialized = false;
@@ -163,24 +164,42 @@ export async function initializeSignalR(config: SignalRConfig): Promise<HubConne
     });
 
     connection.onreconnecting((error) => {
+      console.log('[SignalR] Reconnecting...', error ? `- Error: ${error.message}` : '');
       logError('SignalR Reconnecting', error);
     });
 
     connection.onreconnected(async (connectionId) => {
-      console.log('SignalR reconnected with connection ID:', connectionId);
+      console.log('[SignalR] Reconnected with connection ID:', connectionId);
 
       // CRITICAL: Re-negotiate if using negotiate flow (token may have expired)
       if (isUsingNegotiateFlow && config.negotiateUrl) {
-        console.log('SignalR: Connection restored - negotiate token may need refresh on next reconnect');
+        console.log('[SignalR] Connection restored - negotiate token may need refresh on next reconnect');
         // Note: The current connection should still work, but if it drops again,
         // we may need to re-negotiate. For now, just log the reconnection.
       }
     });
 
+    // CRITICAL: Register all handlers BEFORE starting connection
+    // This ensures no messages are missed during or immediately after connection
+    // @see https://learn.microsoft.com/en-us/aspnet/core/signalr/javascript-client
+    if (config.handlers && config.handlers.length > 0) {
+      console.log(`[SignalR] Registering ${config.handlers.length} handler(s) BEFORE start()`);
+      for (const handlerConfig of config.handlers) {
+        console.log(`[SignalR] Registering handler for method: "${handlerConfig.methodName}"`);
+        connection.on(handlerConfig.methodName, (...args: any[]) => {
+          console.log(`[SignalR] Handler "${handlerConfig.methodName}" invoked with:`, args);
+          handlerConfig.handler(...args);
+        });
+      }
+    } else {
+      console.log('[SignalR] No handlers configured - messages may be missed');
+    }
+
+    // NOW start the connection - handlers are already registered
     await connection.start();
     isInitialized = true;
     currentConfig = config;
-    console.log('SignalR connected successfully');
+    console.log('[SignalR] Connection started successfully - handlers were registered first');
 
     return connection;
 
@@ -301,7 +320,7 @@ export async function stopSignalR(): Promise<void> {
 
   try {
     await connection.stop();
-    console.log('SignalR connection stopped');
+    console.log('[SignalR] Connection stopped');
   } catch (error) {
     logError('SignalR Stop', error);
   } finally {

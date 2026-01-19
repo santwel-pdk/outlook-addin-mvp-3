@@ -340,8 +340,114 @@ describe('signalrService', () => {
     it('should return current config when initialized', async () => {
       mockConnection.state = HubConnectionState.Connected;
       await initializeSignalR(mockConfig);
-      
+
       expect(getCurrentConfig()).toEqual(mockConfig);
+    });
+  });
+
+  describe('handler registration timing', () => {
+    it('should register handlers BEFORE calling start() when handlers provided', async () => {
+      mockConnection.state = HubConnectionState.Connected;
+
+      const handler = jest.fn();
+      const configWithHandlers: SignalRConfig = {
+        hubUrl: 'https://test-hub.com/notifications',
+        handlers: [
+          { methodName: 'TestEvent', handler }
+        ]
+      };
+
+      await initializeSignalR(configWithHandlers);
+
+      // Verify: on() was called BEFORE start()
+      // mockOn.mock.invocationCallOrder gives the global order of calls
+      const onCallOrder = mockOn.mock.invocationCallOrder[0];
+      const startCallOrder = mockStart.mock.invocationCallOrder[0];
+
+      expect(onCallOrder).toBeLessThan(startCallOrder);
+    });
+
+    it('should register all handlers when multiple handlers provided', async () => {
+      mockConnection.state = HubConnectionState.Connected;
+
+      const handler1 = jest.fn();
+      const handler2 = jest.fn();
+      const configWithHandlers: SignalRConfig = {
+        hubUrl: 'https://test-hub.com/notifications',
+        handlers: [
+          { methodName: 'Event1', handler: handler1 },
+          { methodName: 'Event2', handler: handler2 }
+        ]
+      };
+
+      await initializeSignalR(configWithHandlers);
+
+      // Find handler registrations (excluding lifecycle handlers)
+      const eventHandlerCalls = mockOn.mock.calls.filter(
+        call => call[0] === 'Event1' || call[0] === 'Event2'
+      );
+
+      expect(eventHandlerCalls.length).toBe(2);
+      expect(eventHandlerCalls[0][0]).toBe('Event1');
+      expect(eventHandlerCalls[1][0]).toBe('Event2');
+    });
+
+    it('should invoke original handler when message received', async () => {
+      mockConnection.state = HubConnectionState.Connected;
+
+      const handler = jest.fn();
+      const configWithHandlers: SignalRConfig = {
+        hubUrl: 'https://test-hub.com/notifications',
+        handlers: [
+          { methodName: 'TestEvent', handler }
+        ]
+      };
+
+      await initializeSignalR(configWithHandlers);
+
+      // Find the registered wrapper handler for TestEvent
+      const testEventCall = mockOn.mock.calls.find(
+        call => call[0] === 'TestEvent'
+      );
+
+      expect(testEventCall).toBeDefined();
+      const registeredHandler = testEventCall![1];
+
+      // Simulate message received by invoking the registered handler
+      const testMessage = { type: 'test', payload: 'data' };
+      registeredHandler(testMessage);
+
+      // Verify original handler was called with the message
+      expect(handler).toHaveBeenCalledWith(testMessage);
+    });
+
+    it('should work without handlers (backward compatibility)', async () => {
+      mockConnection.state = HubConnectionState.Connected;
+
+      // Config without handlers (old API)
+      const configWithoutHandlers: SignalRConfig = {
+        hubUrl: 'https://test-hub.com/notifications',
+        accessToken: 'test-token'
+      };
+
+      const result = await initializeSignalR(configWithoutHandlers);
+
+      expect(result).toBe(mockConnection);
+      expect(mockStart).toHaveBeenCalled();
+    });
+
+    it('should handle empty handlers array', async () => {
+      mockConnection.state = HubConnectionState.Connected;
+
+      const configWithEmptyHandlers: SignalRConfig = {
+        hubUrl: 'https://test-hub.com/notifications',
+        handlers: []
+      };
+
+      const result = await initializeSignalR(configWithEmptyHandlers);
+
+      expect(result).toBe(mockConnection);
+      expect(mockStart).toHaveBeenCalled();
     });
   });
 });

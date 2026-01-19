@@ -30,6 +30,18 @@ export interface SignalRMessage {
 }
 
 /**
+ * Handler registration configuration for SignalR initialization
+ * Handlers configured here will be registered BEFORE connection.start()
+ * @see https://learn.microsoft.com/en-us/aspnet/core/signalr/javascript-client
+ */
+export interface SignalRHandlerConfig {
+  /** Hub method name to listen for (case-sensitive!) */
+  methodName: string;
+  /** Handler function to invoke when message received */
+  handler: (...args: any[]) => void;
+}
+
+/**
  * SignalR configuration options
  */
 export interface SignalRConfig {
@@ -39,6 +51,8 @@ export interface SignalRConfig {
   ssoTokenProvider?: () => Promise<string>; // SSO token factory
   azureTokenProvider?: () => Promise<string>; // NEW: Azure AD token provider for negotiate
   reconnectPolicy?: number[];
+  /** Handlers to register BEFORE connection starts - CRITICAL for receiving initial messages */
+  handlers?: SignalRHandlerConfig[];
 }
 
 /**

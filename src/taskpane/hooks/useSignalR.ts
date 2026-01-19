@@ -2,13 +2,16 @@
  * useSignalR Hook
  *
  * React hook to manage SignalR connection in components with loading and error states.
+ * CRITICAL: Handlers are now passed during initialization to ensure they are registered
+ * BEFORE connection.start() - this prevents missing initial messages.
  *
  * @module useSignalR
+ * @see https://learn.microsoft.com/en-us/aspnet/core/signalr/javascript-client
  */
 
 import { useState, useEffect } from 'react';
 import { HubConnectionState } from '@microsoft/signalr';
-import { initializeSignalR, isSignalRInitialized, onMessage, offMessage, getConnectionState } from '../services/signalrService';
+import { initializeSignalR, isSignalRInitialized, offMessage, getConnectionState } from '../services/signalrService';
 import { SignalRConnectionState, SignalRMessage, SignalRConfig } from '../types/signalr.types';
 import { useOfficeContext } from './useOfficeContext';
 
@@ -54,7 +57,7 @@ export function useSignalR(): SignalRConnectionState {
       try {
         // Get configuration from environment variables
         const hubUrl = process.env.REACT_APP_SIGNALR_HUB_URL;
-        
+
         // Provide helpful error message if environment variables are not configured
         if (!hubUrl) {
           throw new Error(
@@ -63,19 +66,14 @@ export function useSignalR(): SignalRConnectionState {
           );
         }
 
-        const config: SignalRConfig = {
-          hubUrl: hubUrl,
-          accessToken: process.env.REACT_APP_SIGNALR_ACCESS_TOKEN,
-          reconnectPolicy: [0, 2000, 10000, 30000]
-        };
-        
-        const connection = await initializeSignalR(config);
-        
-        // PATTERN: Setup message handlers for real-time notifications
+        // CRITICAL: Define message handler BEFORE initializing connection
+        // This handler will be registered BEFORE connection.start() is called
+        // to ensure no messages are missed during or immediately after connection
         const messageHandler = (message: SignalRMessage) => {
+          console.log('[useSignalR] Message received:', message);
           if (isMounted) {
-            setState(prev => ({ 
-              ...prev, 
+            setState(prev => ({
+              ...prev,
               lastMessage: {
                 ...message,
                 timestamp: new Date(message.timestamp) // Ensure Date object
@@ -84,9 +82,20 @@ export function useSignalR(): SignalRConnectionState {
           }
         };
 
-        // Register for notification messages
-        onMessage('NotificationReceived', messageHandler);
-        onMessage('BroadcastMessage', messageHandler);
+        // CRITICAL: Pass handlers in config so they are registered BEFORE start()
+        // Method names are case-sensitive and must match server-side exactly
+        const config: SignalRConfig = {
+          hubUrl: hubUrl,
+          accessToken: process.env.REACT_APP_SIGNALR_ACCESS_TOKEN,
+          reconnectPolicy: [0, 2000, 10000, 30000],
+          handlers: [
+            { methodName: 'NotificationReceived', handler: messageHandler },
+            { methodName: 'BroadcastMessage', handler: messageHandler }
+          ]
+        };
+
+        // Handlers are now registered INSIDE initializeSignalR, BEFORE connection.start()
+        const connection = await initializeSignalR(config);
 
         if (isMounted) {
           setState({
@@ -98,6 +107,7 @@ export function useSignalR(): SignalRConnectionState {
           });
         }
       } catch (error) {
+        console.error('[useSignalR] Connection error:', error);
         if (isMounted) {
           setState(prev => ({
             ...prev,
