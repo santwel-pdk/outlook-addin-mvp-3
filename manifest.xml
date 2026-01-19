@@ -5,7 +5,7 @@
   <ProviderName>Contoso</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="outlook-addin-mvp-3"/>
-  <Description DefaultValue="WSS-140125"/>
+  <Description DefaultValue="WSS-190125"/>
   <IconUrl DefaultValue="https://victorious-pond-03362ac0f.1.azurestaticapps.net/assets/icon-64.png"/>
   <HighResolutionIconUrl DefaultValue="https://victorious-pond-03362ac0f.1.azurestaticapps.net/assets/icon-128.png"/>
   <SupportUrl DefaultValue="https://www.contoso.com/help"/>
