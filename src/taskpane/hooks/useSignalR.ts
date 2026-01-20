@@ -132,7 +132,7 @@ export function useSignalR(): SignalRConnectionState {
         // Method names are case-sensitive and must match server-side exactly
         const config: SignalRConfig = {
           hubUrl: hubUrl,
-          accessToken: process.env.REACT_APP_SIGNALR_ACCESS_TOKEN,
+          accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ijc3MTI5NjE2MiJ9.eyJhc3JzLnMudWlkIjoiYjQxZjYwNGMtOTZhMS00MTAxLTlmMmQtYzgwNjAxMjhkYzVhIiwibmJmIjoxNzY4ODgwMDA2LCJleHAiOjE3Njg4ODM2MDYsImlhdCI6MTc2ODg4MDAwNiwiaXNzIjoiYXp1cmUtc2lnbmFsciIsImF1ZCI6Imh0dHBzOi8vc2lnbmFsci1vdXRsb29rLWFkZGluLnNlcnZpY2Uuc2lnbmFsci5uZXQvY2xpZW50Lz9odWI9ZW1haWxub3RpZmljYXRpb25zIn0.rs-Z7Pneft59qZkg1Mm-7cgl9ylEonqYDgXTzRLN03E",//process.env.REACT_APP_SIGNALR_ACCESS_TOKEN,
           reconnectPolicy: [0, 2000, 10000, 30000],
           handlers: [
             { methodName: 'NotificationReceived', handler: messageHandler },
