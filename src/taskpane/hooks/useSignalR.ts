@@ -69,17 +69,63 @@ export function useSignalR(): SignalRConnectionState {
         // CRITICAL: Define message handler BEFORE initializing connection
         // This handler will be registered BEFORE connection.start() is called
         // to ensure no messages are missed during or immediately after connection
-        const messageHandler = (message: SignalRMessage) => {
-          console.log('[useSignalR] Message received:', message);
-          if (isMounted) {
-            setState(prev => ({
-              ...prev,
-              lastMessage: {
-                ...message,
-                timestamp: new Date(message.timestamp) // Ensure Date object
-              }
-            }));
+        //
+        // NOTE: SignalR can send messages in various formats depending on server implementation:
+        // 1. Single object: SendAsync("Method", { type, payload, ... })
+        // 2. Multiple args: SendAsync("Method", type, payload, data)
+        // 3. Raw data: SendAsync("Method", "some string or data")
+        // This handler normalizes any format into a SignalRMessage structure.
+        const messageHandler = (...args: any[]) => {
+          console.log('[useSignalR] Raw message received:', args);
+
+          if (!isMounted) {
+            return;
           }
+
+          // Normalize the incoming message into SignalRMessage format
+          let normalizedMessage: SignalRMessage;
+
+          if (args.length === 0) {
+            // No arguments - create empty notification
+            normalizedMessage = {
+              type: 'notification',
+              payload: null,
+              timestamp: new Date(),
+              id: crypto.randomUUID ? crypto.randomUUID() : `msg-${Date.now()}`
+            };
+          } else if (args.length === 1 && typeof args[0] === 'object' && args[0] !== null) {
+            // Single object argument - check if it's already a SignalRMessage-like structure
+            const obj = args[0];
+            normalizedMessage = {
+              type: obj.type || obj.Type || 'notification',
+              payload: obj.payload || obj.Payload || obj.data || obj.Data || obj,
+              timestamp: obj.timestamp || obj.Timestamp ? new Date(obj.timestamp || obj.Timestamp) : new Date(),
+              id: obj.id || obj.Id || (crypto.randomUUID ? crypto.randomUUID() : `msg-${Date.now()}`)
+            };
+          } else if (args.length === 1) {
+            // Single primitive argument
+            normalizedMessage = {
+              type: 'notification',
+              payload: args[0],
+              timestamp: new Date(),
+              id: crypto.randomUUID ? crypto.randomUUID() : `msg-${Date.now()}`
+            };
+          } else {
+            // Multiple arguments - first is often the type/method, rest is payload
+            normalizedMessage = {
+              type: typeof args[0] === 'string' ? args[0] : 'notification',
+              payload: args.length === 2 ? args[1] : args.slice(1),
+              timestamp: new Date(),
+              id: crypto.randomUUID ? crypto.randomUUID() : `msg-${Date.now()}`
+            };
+          }
+
+          console.log('[useSignalR] Normalized message:', normalizedMessage);
+
+          setState(prev => ({
+            ...prev,
+            lastMessage: normalizedMessage
+          }));
         };
 
         // CRITICAL: Pass handlers in config so they are registered BEFORE start()

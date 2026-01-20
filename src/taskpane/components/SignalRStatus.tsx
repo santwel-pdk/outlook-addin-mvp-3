@@ -144,6 +144,24 @@ const getStatusText = (state: HubConnectionState): string => {
 };
 
 /**
+ * Safely formats a timestamp, handling edge cases like invalid dates
+ */
+const formatTimestamp = (timestamp: Date | string | number | undefined): string => {
+  if (!timestamp) {
+    return 'Unknown';
+  }
+
+  const date = timestamp instanceof Date ? timestamp : new Date(timestamp);
+
+  // Check for invalid date
+  if (isNaN(date.getTime())) {
+    return 'Invalid time';
+  }
+
+  return date.toLocaleTimeString();
+};
+
+/**
  * SignalRStatus component displaying connection status and messages
  *
  * @param {SignalRStatusProps} props Component props
@@ -205,7 +223,7 @@ const SignalRStatus: React.FC<SignalRStatusProps> = ({ signalrState }) => {
               <br />
               <Text size={300} weight="semibold">Type:</Text> <Text size={300}>{lastMessage.type}</Text>
               <br />
-              <Text size={300} weight="semibold">Time:</Text> <Text size={300}>{lastMessage.timestamp.toLocaleTimeString()}</Text>
+              <Text size={300} weight="semibold">Time:</Text> <Text size={300}>{formatTimestamp(lastMessage.timestamp)}</Text>
               {lastMessage.payload && (
                 <>
                   <br />
