@@ -9,7 +9,6 @@
 import { HubConnectionBuilder, HubConnection, HubConnectionState, LogLevel, HttpTransportType } from '@microsoft/signalr';
 import { handleOfficeError, logError } from '../utils/errorHandler';
 import { SignalRConfig, SignalRMessage, SignalRConnectionInfo, SignalRHandlerConfig } from '../types/signalr.types';
-import { getValidToken } from './tokenManagerService';
 import { negotiate, isNegotiateConfigured } from './negotiateService';
 
 let isInitialized = false;
@@ -38,15 +37,15 @@ function validateSignalRConfig(config: SignalRConfig): void {
     if (!config.negotiateUrl.startsWith('https://')) {
       throw new Error('SignalR Negotiate URL must use HTTPS for security.');
     }
-    if (!config.azureTokenProvider && !config.ssoTokenProvider && !config.accessToken) {
+    if (!config.azureTokenProvider && !config.accessToken) {
       console.warn('Negotiate URL configured but no token provider available for authentication.');
     }
     return; // Skip other auth validation for negotiate flow
   }
 
   // Validate authentication configuration for direct connection
-  if (!config.ssoTokenProvider && !config.accessToken) {
-    console.warn('No authentication configured. Either provide ssoTokenProvider for SSO or accessToken for static auth.');
+  if (!config.azureTokenProvider && !config.accessToken) {
+    console.warn('No authentication configured. Provide azureTokenProvider or accessToken for auth.');
   }
 
   // Optional: Validate token format if static token provided
@@ -92,12 +91,10 @@ export async function initializeSignalR(config: SignalRConfig): Promise<HubConne
       try {
         if (config.azureTokenProvider) {
           bearerToken = await config.azureTokenProvider();
-        } else if (config.ssoTokenProvider) {
-          bearerToken = await config.ssoTokenProvider();
         } else if (config.accessToken) {
           bearerToken = config.accessToken;
         } else {
-          bearerToken = await getValidToken();
+          throw new Error('No token provider or access token configured for negotiate');
         }
       } catch (tokenError) {
         logError('SignalR Token Acquisition for Negotiate', tokenError);
@@ -120,23 +117,18 @@ export async function initializeSignalR(config: SignalRConfig): Promise<HubConne
 
       console.log('[SignalR] Negotiation successful, connecting to:', connectionUrl);
     } else {
-      // Existing direct connection flow
+      // Direct connection flow
       isUsingNegotiateFlow = false;
       tokenFactory = async () => {
         try {
-          // Prefer SSO token provider for fresh tokens
-          if (config.ssoTokenProvider) {
-            return await config.ssoTokenProvider();
+          // Use Azure AD token provider if available
+          if (config.azureTokenProvider) {
+            return await config.azureTokenProvider();
           }
-          // Use TokenManager as fallback for SSO
-          if (!config.accessToken) {
-            return await getValidToken();
-          }
-          // Fallback to static token for backward compatibility
+          // Use static token
           return config.accessToken || '';
         } catch (error) {
           logError('SignalR Token Factory', error);
-          // Return static token if SSO fails
           return config.accessToken || '';
         }
       };

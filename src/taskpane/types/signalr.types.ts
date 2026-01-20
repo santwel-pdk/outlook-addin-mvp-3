@@ -46,10 +46,9 @@ export interface SignalRHandlerConfig {
  */
 export interface SignalRConfig {
   hubUrl: string;
-  negotiateUrl?: string; // NEW: If provided, use negotiate flow for Azure SignalR Service
-  accessToken?: string; // Keep for backward compatibility
-  ssoTokenProvider?: () => Promise<string>; // SSO token factory
-  azureTokenProvider?: () => Promise<string>; // NEW: Azure AD token provider for negotiate
+  negotiateUrl?: string; // If provided, use negotiate flow for Azure SignalR Service
+  accessToken?: string; // Static access token for authentication
+  azureTokenProvider?: () => Promise<string>; // Azure AD token provider for negotiate
   reconnectPolicy?: number[];
   /** Handlers to register BEFORE connection starts - CRITICAL for receiving initial messages */
   handlers?: SignalRHandlerConfig[];

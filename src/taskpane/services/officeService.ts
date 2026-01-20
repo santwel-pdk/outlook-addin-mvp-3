@@ -7,8 +7,6 @@
  */
 
 import { enforceWebView2 } from './webview2Service';
-import { initializeSSO } from './ssoService';
-import { startTokenAutoRefresh } from './tokenManagerService';
 import { registerItemChangedHandler } from './contextService';
 import { logError } from '../utils/errorHandler';
 
@@ -37,24 +35,6 @@ export async function initializeOffice(): Promise<Office.Context> {
             officeContext = Office.context;
             isInitialized = true;
             console.log('Office.js initialized successfully for Outlook');
-            
-            // Initialize SSO after Office.js is ready
-            try {
-              await initializeSSO({
-                allowSignInPrompt: true,
-                allowConsentPrompt: true,
-                forMSGraphAccess: false
-              });
-
-              // Start automatic token refresh monitoring
-              startTokenAutoRefresh();
-
-              console.log('SSO initialized successfully');
-            } catch (ssoError) {
-              // Don't fail Office initialization if SSO fails
-              logError('SSO Initialization', ssoError);
-              console.warn('SSO initialization failed, add-in will work without SSO features');
-            }
 
             // Register ItemChanged handler for pinned task pane support
             try {

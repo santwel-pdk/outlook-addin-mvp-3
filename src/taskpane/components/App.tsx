@@ -2,7 +2,6 @@ import * as React from "react";
 import EmailInfo from "./EmailInfo";
 import AppointmentInfo from "./AppointmentInfo";
 import SignalRStatus from "./SignalRStatus";
-import SSOStatus from "./SSOStatus";
 import { makeStyles, MessageBar, MessageBarBody, tokens } from "@fluentui/react-components";
 import { useMailboxItem } from "../hooks/useMailboxItem";
 import { useAppointmentItem } from "../hooks/useAppointmentItem";
@@ -104,9 +103,6 @@ const App: React.FC<AppProps> = (_props: AppProps) => {
   return (
     <div className={styles.root}>
       {renderContent()}
-
-      <SSOStatus />
-
       <SignalRStatus signalrState={signalrState} />
     </div>
   );
